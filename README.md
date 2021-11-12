@@ -1,2 +1,2 @@
 # STGP-Core
-The core of a Strongly Typed Genetic Programming model.
+The core of a Genetic Programming model.
