@@ -24,10 +24,6 @@ classdef Signal < Node
             newLine(level);
             fprintf("RETURN " + node.signal);
         end
-        
-        function newNode = clone(node, ~)
-            newNode = copy(node);
-        end
     end
 end
 

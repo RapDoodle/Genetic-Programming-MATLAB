@@ -35,10 +35,6 @@ classdef Value < Node
         function summary(node, ~)
             fprintf("" + node.value);
         end
-        
-        function newNode = clone(node, ~)
-            newNode = copy(node);
-        end
     end
 end
 

@@ -19,10 +19,6 @@ classdef Function < Node
             newLine(level);
             fprintf(node.funcName + " (X)");
         end
-        
-        function newNode = clone(node, ~)
-            newNode = copy(node);
-        end
     end
 end
 

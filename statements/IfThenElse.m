@@ -35,16 +35,6 @@ classdef IfThenElse < Statement
             end
         end
         
-        function newNode = clone(node, recursive)
-            if nargin < 2
-                recursive = true;
-            end
-            newNode = copy(node);
-            newNode.ifNode = node.ifNode.clone(recursive);
-            newNode.thenNode = node.thenNode.clone(recursive);
-            newNode.elseNode = node.elseNode.clone(recursive);
-        end
-        
         function summary(node, level)
             % Generate the pseudocode for the current tree
             if nargin < 2

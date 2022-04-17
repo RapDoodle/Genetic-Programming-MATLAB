@@ -25,15 +25,6 @@ classdef BinaryOperator < Operator
             
             endOfSummary(level);
         end
-        
-        function newNode = clone(node, recursive)
-            if nargin < 2
-                recursive = true;
-            end
-            newNode = copy(node);
-            newNode.lhs = node.lhs.clone(recursive);
-            newNode.rhs = node.rhs.clone(recursive);
-        end
     end
 end
 
