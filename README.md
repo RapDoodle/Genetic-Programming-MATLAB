@@ -24,7 +24,7 @@ Genetic programming (GP) is an extension of genetic algorithms. GP encodes the p
 1. Add the toolbox to your MATLAB path
 
     ```matlab
-    addpath('./gp');
+    addpath(genpath('./gp'));
     ```
 
 1. Start programming.
