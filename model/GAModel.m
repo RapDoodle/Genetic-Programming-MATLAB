@@ -9,6 +9,7 @@ classdef GAModel < handle
         options
         status
         statistics
+        best
     end
     
     methods
@@ -54,6 +55,10 @@ classdef GAModel < handle
             model.options = options;
         end
         
+        function member = get.best(model)
+            member = model.population{1};
+        end
+        
         function stat = run(model, varargin)
             % Start optimizing with genetic algorithm on the model.
             % Arguments:
@@ -74,22 +79,13 @@ classdef GAModel < handle
                     fprintf("Running generation %d / %d\n", gen, gens);
                 end
                 model.forEachGeneration(gen, gens, varargin{:});
+                if model.verbose >= 1
+                    fprintf("[Generation %d / %d] Max fitness: %s\n", ...
+                        gen, gens, string(model.statistics.maxFitnesses(gen)));
+                end
             end
             
             model.afterRun(varargin{:});
-        end
-        
-        function summary(model, index)
-            if nargin < 2
-                index = 1;
-            end
-            
-            n = length(model.population{index}.tradingCommittee.members);
-            for i=1:n
-                fprintf("\nFUNCTION AGENT" + string(i) + "()");
-                model.population{1}.tradingCommittee.population{i}.rootNode.summary(2)
-                fprintf("\nEND\n");
-            end
         end
         
         function fitnesses = sortPopulation(model, fitnesses)
