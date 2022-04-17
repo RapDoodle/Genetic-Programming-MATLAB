@@ -1,14 +1,40 @@
-classdef GPMember < handle
+classdef GPMember < GAMember
+    % Implementes the GPMember interface.
+    
     properties
-        fitness
+        rootNode
+        template
+        maxHeight
     end
-    methods(Abstract)
-        % Execute the internal logic of the member
-        output = exec(member, env)
+    
+    methods
+        function member = GPMember()
+            
+        end
         
-        % Genetic operators in GP
-        crossover(member, mateMember, opt)
-        mutate(member, opt)
+        function init(member, template, maxHeight)
+            member.template = template;
+            member.maxHeight = maxHeight;
+            member.rootNode = member.template.getNode({'Root'}, "", maxHeight);
+            member.rootNode.setTemplate(member.template);
+            member.rootNode.grow(member.maxHeight);
+        end
+        
+        function signal = exec(member, env)
+            signal = member.rootNode.exec(env);
+        end
+        
+        function crossover(member, mateMember)
+            member.rootNode.crossover(mateMember.rootNode);
+        end
+        
+        function mutate(member, opt)
+            member.rootNode.mutate(opt);
+        end
+        
+        function depth = getDepth(member)
+            depth = member.rootNode.getDepth();
+        end
     end
 end
 
