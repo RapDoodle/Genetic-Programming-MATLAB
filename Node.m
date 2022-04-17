@@ -89,6 +89,8 @@ classdef Node < handle
                     node.lookupName, childrenKey, maxHeight-1, true, ...
                     128, 0, node.tags);
                     if strcmp(childrenKey, 'rhs') && isa(node.(childrenKey), 'Value')
+                        % If the lower bound and upper bound is the same, 
+                        % ignore its rhs
                         if node.lhs.valuesType == 2 && ...
                                 node.lhs.lowerBound == node.lhs.upperBound
                             continue;
