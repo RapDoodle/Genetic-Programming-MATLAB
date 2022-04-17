@@ -83,6 +83,10 @@ classdef Template < handle
         end
         
         function extend(tpl, key, val)
+            % Add a node prototype to the library
+            % Arguments:
+            %   key: The lookup name of the desired position
+            %   val: The node prototype
             if ~isa(val, 'cell')
                 error("Not a cell");
             end
