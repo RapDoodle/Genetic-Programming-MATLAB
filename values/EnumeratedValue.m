@@ -21,7 +21,7 @@ classdef EnumeratedValue < Value
             node.appendLookupName('EnumeratedValue');
         end
         
-        function init(node, relatedEnvVar, allowedValues, returnType)
+        function node = init(node, relatedEnvVar, allowedValues, returnType)
             % The constructor for enumerated values
             % Arguments:
             %   relatedEnvVar: The name of the environment variable
@@ -48,8 +48,8 @@ classdef EnumeratedValue < Value
             node.value = node.allowedValues(idx);
         end
         
-        function mutate(node, ~, options)
-            if rand() < options.mutationRate
+        function mutate(node, options, ~)
+            if rand() < options.terminalMutationRate
                 node.init();
             end
         end

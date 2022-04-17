@@ -22,8 +22,8 @@ classdef DiscreteSignal < Signal
             end
         end
         
-        function mutate(node, ~, options)
-            if rand() < options.mutationRate
+        function mutate(node, options, ~)
+            if rand() < options.terminalMutationRate
                 node.init();
             end
         end
