@@ -22,7 +22,7 @@ classdef BoundedValue < Value
             node.appendLookupName('BoundedValue');
         end
         
-        function init(node, relatedEnvVar, lowerBound, upperBound, returnType)
+        function node = init(node, relatedEnvVar, lowerBound, upperBound, returnType)
             % The initializer for bounded values
             %
             % Arguments:
@@ -55,7 +55,7 @@ classdef BoundedValue < Value
             end
         end
         
-        function mutate(node, ~, options)
+        function mutate(node, options, ~)
             % Arguments:
             %   mutationStd:
             %     The standard deviation of each mutation. By default, 1.
@@ -64,29 +64,41 @@ classdef BoundedValue < Value
             %     Extra mechanism is implemented to ensure the value 
             %     after mutation stays within in the range:
             %         ([lowerBound, upperBound])
-            if rand() < options.mutationRate
+            if node.lowerBound == node.upperBound
+                return;
+            end
+            
+            if rand() < options.terminalMutationRate
                 success = false;
-                
-                for i=1:50
+                if isfield(options, 'mutationStd') && ...
+                        isfield(options.mutationStd, node.relatedEnvVar)
+                    for i=1:50
+                        if node.valueType == 1
+                            % Value type: int
+                            newVal = node.value + ...
+                                round(getfield(options.mutationStd, node.relatedEnvVar) * randn());
+                        else
+                            % Value type: double
+                            newVal = node.value + options.mutationStd.(node.relatedEnvVar) * randn();
+                        end
+
+                        if newVal <= node.upperBound && newVal >= node.lowerBound
+                            success = true;
+                            node.value = newVal;
+                            break;
+                        end
+                    end
+
+                    if ~success
+                        error("Maximum attempt for mutation reached.");
+                    end
+                else
                     if node.valueType == 1
-                        % Value type: int
-                        newVal = node.value + ...
-                            round(getfield(options.mutationStd, node.relatedEnvVar) * randn());
+                        node.value = randi([node.lowerBound, node.upperBound]);
                     else
-                        % Value type: double
-                        newVal = node.value + ...
-                            getfield(options.mutationStd, node.relatedEnvVar) * randn();
+                        node.value = node.lowerBound + ...
+                            (node.upperBound - node.lowerBound) * rand();
                     end
-                    
-                    if newVal <= node.upperBound && newVal >= node.lowerBound
-                        success = true;
-                        node.value = newVal;
-                        break;
-                    end
-                end
-                
-                if ~success
-                    error("Maximum attempt for mutation reached.");
                 end
             end
         end
