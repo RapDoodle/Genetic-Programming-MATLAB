@@ -78,10 +78,6 @@ classdef EnvVariable < Node
         function summary(node, ~)
             fprintf("" + node.fieldName);
         end
-        
-        function newNode = clone(node, ~)
-            newNode = copy(node);
-        end
     end
 end
 
