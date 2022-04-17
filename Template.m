@@ -82,6 +82,13 @@ classdef Template < handle
             tpl.library(key) = val;
         end
         
+        function extend(tpl, key, val)
+            if ~isa(val, 'cell')
+                error("Not a cell");
+            end
+            tpl.library(key) = [tpl.library(key), val];
+        end
+        
         function output = getNode(tpl, nodeLookupName, child, ...
                 maxHeight, recursive, maxRecursiveLevel, skip, tags)
             % Returns a random node from the allowed nodes specified
@@ -207,7 +214,7 @@ classdef Template < handle
                 end
             end
             
-            output = copy(list{idx});
+            output = deepcopy(list{idx});
             
             % Preload the current template by default
             output.setTemplate(tpl);
