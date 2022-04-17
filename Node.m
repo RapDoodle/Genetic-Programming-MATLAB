@@ -80,20 +80,34 @@ classdef Node < handle
             
             n = length(node.childrenKeys);
             
+            % Find a node for each child
             for i=1:n
                 childrenKey = node.childrenKeys{i};
-                node.(childrenKey) = ...
+                while true
+                    node.(childrenKey) = ...
                     node.template.getNode( ...
                     node.lookupName, childrenKey, maxHeight-1, true, ...
                     128, 0, node.tags);
+                    if strcmp(childrenKey, 'rhs') && isa(node.(childrenKey), 'Value')
+                        if node.lhs.valuesType == 2 && ...
+                                node.lhs.lowerBound == -1 && ...
+                                node.lhs.upperBound == -1
+                            continue;
+                        end
+                    end
+                    break;
+                end
+                
                 node.(childrenKey).addRequiredTags(node.requiredTags);
             end
             
+            % Recursively grow the nodes
             for i=1:n
                 childNode = node.(node.childrenKeys{i});
                 childNode.grow(maxHeight-1);
             end
             
+            % Initialize the nodes
             for i=1:n
                 if strcmp(node.childrenKeys{i}, 'rhs') && ...
                         isa(node.('rhs'), 'Value')
@@ -170,7 +184,7 @@ classdef Node < handle
             end
         end
         
-        function success = crossover(nodeA, nodeB)
+        function success = crossover(nodeA, nodeB, ~)
             success = false;
             depthA = nodeA.getDepth();
             depthB = nodeB.getDepth();
@@ -224,7 +238,7 @@ classdef Node < handle
                         
                         % Verified the node is valid
                         selectedNodeA.(randomChildKey) = ...
-                            copy(selectedNodeB);
+                            deepcopy(selectedNodeB);
                         
                         success = true;
                         break;
@@ -237,15 +251,15 @@ classdef Node < handle
             end
         end
         
-        function mutate(node, maxHeight, options)
+        function mutate(node, opt, maxHeight)
             % Mutate the node. The default behaviors for nodes. Can be
             % overridden if needed.
             % The mutation is done by replacing regrowing the current
             % node. The node itself (eg. the operator >=) will not be
             % changed. Only the children is changed.
             % Arguments:
-            %   maxHeight: The maximum height allowed
-            %   options: A struct containing the following options
+            %   opt: A struct containing the following options
+            %     - maxHeight: The maximum height allowed
             %     - mutationRate: The rate of mutation. For example, 0.02
             %       for 2%.
             %     - mutationStd: [Optional] A struct containing the
@@ -254,18 +268,25 @@ classdef Node < handle
             %       name of the related environment variable and the 
             %       standard deviation of mutation. For example, 
             %       mutationStd.RSI = 1.
-            if rand() < options.mutationRate
+            %   maxHeight: The maximum height allowed. No need to specify.
+            %       as the function will automatically populate the
+            %       variable with values from the opt object
+            if nargin < 3
+                maxHeight = opt.maxHeight;
+            end
+            if rand() < opt.mutationRate
                 % The current node is chosen to mutate. Then try to grow
                 try
-                    node.grow(maxHeight-1);
+                    node.grow(opt.maxHeight-1);
                 catch
+                    
                 end
             else
                 n = length(node.childrenKeys);
                 for i=1:n
                     childrenKey = node.childrenKeys{i};
                     childNode = node.(childrenKey);
-                    childNode.mutate(maxHeight-1, options);
+                    childNode.mutate(opt, maxHeight-1);
                 end
             end
         end
@@ -307,19 +328,6 @@ classdef Node < handle
         
         output = exec(node, env)
         % Execute the current node.
-        
-        newNode = clone(node, recursive)
-        % The function clones the current node
-        % Arguments:
-        %   recursive: Whether to clone the node recursively (all 
-        %       subsequent nodes that follow). By default, true.
-        % Note:
-        %   This function is deprecated with the introduction of copy().
-        
-        % lookupName = getLookupName(node)
-        % Return the lookup name for the node. Can be overridden by
-        % subclasses to include its more specific domain name. Otherwise,
-        % the superclass's lookup name is used for search.
         
         summary(node, level)
         % Generate the pseudocode of the current tree
