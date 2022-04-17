@@ -7,6 +7,7 @@ The framework contains:
 - Genetic operators including natural selection, reproduction, and mutation
 - An easy-to-use programming framework to build and train your GP models
 - A template system to specify the nodes allowed for each type.
+- A genetic algorithm optimization framework (you can choose not to use GP).
 
 ## What is Genetic Programming?
 
@@ -30,7 +31,7 @@ Genetic programming (GP) is an extension of genetic algorithms. GP encodes the p
 
 ## Documentation and Examples
 
-You can find more documentation and examples in the [documentation folder](tree/main/model).
+You can find more documentation and examples in the [documentation folder](tree/main/docs).
 
 ## License
 
