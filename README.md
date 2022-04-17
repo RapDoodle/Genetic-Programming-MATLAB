@@ -31,7 +31,12 @@ Genetic programming (GP) is an extension of genetic algorithms. GP encodes the p
 
 ## Documentation and Examples
 
-You can find more documentation and examples in the [documentation folder](../tree/main/docs).
+You can find more documentation and examples in the [documentation folder](./docs).
+
+### Table of Contents
+1. [Introduction](./docs/1.%20Intoduction.md).
+
+Note: The development documentation is not available at the moment. But the code does contain an extensive amount of comments.
 
 ## License
 
