@@ -90,8 +90,7 @@ classdef Node < handle
                     128, 0, node.tags);
                     if strcmp(childrenKey, 'rhs') && isa(node.(childrenKey), 'Value')
                         if node.lhs.valuesType == 2 && ...
-                                node.lhs.lowerBound == -1 && ...
-                                node.lhs.upperBound == -1
+                                node.lhs.lowerBound == node.lhs.upperBound
                             continue;
                         end
                     end
