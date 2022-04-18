@@ -2,19 +2,42 @@ classdef GAModel < handle
     
     properties
         populationSize
+        % Size of the population.
+        
         population = {}
+        % A cell of individuals in the population
+        
         fitnesses
+        % The fitness score of every individual in the model. Dependes on
+        % the implementation.
+        
         constructor
+        % The constructor for individuals in the population.
+        
         verbose = 1
+        % Verbose level:
+        %	0: Mute
+        %   1: Only show results for each generation
+        %   2: Show information for each generation
+        %   3: Show results for individual
+        %   4: Show information for each individual (default)
+        
         options
+        % Options used for optimizing the model.
+        
         status
+        % A struct containing the current status of the model.
+        
         statistics
+        % A struct containing the model's statistics.
+        
         best
+        % The individual with the highest fitness score.
     end
     
     methods
         function model = GAModel(constructor)
-            % Define the type of GAMember. The variable must be the
+            % Defines the type of GAMember. The variable must be the
             % constructor of a class that extends the GAMember interface.
             if ~isa(constructor(), 'GAMember')
                 error('The passed in type does not implement the GAMember interface');
@@ -23,7 +46,7 @@ classdef GAModel < handle
         end
         
         function populate(model, populationSize)
-            % Populate the GA model with populationSize of individuals
+            % Populate the GA model with populationSize of individuals.
             model.populationSize = populationSize;
             for i=1:populationSize
                 model.population{i} = model.constructor();
@@ -33,12 +56,7 @@ classdef GAModel < handle
         function set.verbose(model, verbose)
             % Set the verbose level.
             % Arguments:
-            %   verbose: The verbose level
-            %       0: Mute
-            %       1: Only show results for each generation
-            %       2: Show information for each generation
-            %       3: Show results for individual
-            %       4: Show information for each individual (default)
+            %   verbose: The verbose level.
             if (verbose < 0 || verbose > 4)
                 error('Invalid verbose level.');
             end
@@ -48,7 +66,7 @@ classdef GAModel < handle
         function set.options(model, options)
             % Set the options for optimizing the GA model.
             % Arguments:
-            %   
+            %   options: A struct of options.
             if ~isa(options, 'struct')
                 error('Invalid options. The options must be stored in a struct.');
             end
@@ -88,12 +106,12 @@ classdef GAModel < handle
             model.afterRun(varargin{:});
         end
         
-        function fitnesses = sortPopulation(model, fitnesses)
-            if nargin < 2
-                fitnesses = model.fitnesses;
-            end
-            [fitnesses, sortIdx] = sort(fitnesses, 'descend');
-            model.population = model.population(sortIdx);
+        function beforeRun(~, varargin)
+            
+        end
+        
+        function afterRun(~, varargin)
+            
         end
     end
     
@@ -165,13 +183,19 @@ classdef GAModel < handle
                 model.population{i} = modela;
             end
         end
+        
+        function fitnesses = sortPopulation(model, fitnesses)
+            if nargin < 2
+                fitnesses = model.fitnesses;
+            end
+            [fitnesses, sortIdx] = sort(fitnesses, 'descend');
+            model.population = model.population(sortIdx);
+        end
     end
     
     methods(Abstract)
         init(model)
-        beforeRun(model, varargin)
         forEachGeneration(model, gen, gens, varargin)
-        afterRun(model, varargin)
     end
 end
 
