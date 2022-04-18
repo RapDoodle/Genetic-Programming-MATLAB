@@ -27,7 +27,7 @@ Genetic programming (GP) is an extension of genetic algorithms. GP encodes the p
     addpath(genpath('./gp'));
     ```
 
-1. Start programming.
+1. Start codeing.
 
 ## Documentation and Examples
 
@@ -35,6 +35,18 @@ You can find more documentation and examples in the [documentation folder](./doc
 
 ### Table of Contents
 1. [Introduction](./docs/1.%20Intoduction.md).
+1. Components
+    1. [Node](./docs/2.1%20Node.md)
+    1. [EnvVariable](./docs/2.2%20EnvVariable.md)
+    1. [Signal](./docs/2.3%20Signal.md)
+    1. [Template](./docs/2.4%20Template.md)
+    1. [GAMember](./docs/2.5%20GAMember.md)
+    1. [GPMember](./docs/2.6%20GPMember.md)
+    1. [GAModel](./docs/2.7%20GAModel.md)
+    1. [GPModel](./docs/2.8%20GPModel.md)
+1. Examples
+    1. [Genetic programming based trading bot]()
+        - [Project page]()
 
 Note: The development documentation is not available at the moment. But the code does contain an extensive amount of comments.
 
