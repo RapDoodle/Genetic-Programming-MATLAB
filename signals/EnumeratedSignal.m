@@ -1,16 +1,16 @@
-classdef DiscreteSignal < Signal
-    % DiscreteSignals are signals that take in discrete values.
+classdef EnumeratedSignal < Signal
+    % EnumeratedSignals are signals that take in discrete values.
     % Lookup Name:
-    %   Signal.DiscreteSignal
+    %   Signal.EnumeratedSignal
     
     properties
         allowedValues
     end
     
     methods
-        function node = DiscreteSignal(allowedValues)
+        function node = EnumeratedSignal(allowedValues)
             node = node@Signal();
-            node.appendLookupName('DiscreteSignal');
+            node.appendLookupName('EnumeratedSignal');
             node.allowedValues = allowedValues;
         end
         

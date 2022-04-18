@@ -1,7 +1,7 @@
-classdef ContinuousSignal < Signal
-    % ContinuousSignals are signals that outputs continous values.
+classdef BoundedSignal < Signal
+    % BoundedSignals are signals that outputs continous values.
     % Lookup Name:
-    %   Signal.ContinuousSignal
+    %   Signal.BoundedSignal
     
     properties
         lowerBound
@@ -10,9 +10,9 @@ classdef ContinuousSignal < Signal
     end
     
     methods
-        function node = ContinuousSignal(lowerBound, upperBound, returnType)
+        function node = BoundedSignal(lowerBound, upperBound, returnType)
             node = node@Signal();
-            node.appendLookupName('ContinuousSignal');
+            node.appendLookupName('BoundedSignal');
             if strcmp(returnType, 'int')
                 node.valueType = 1;
             elseif strcmp(returnType, 'double')
