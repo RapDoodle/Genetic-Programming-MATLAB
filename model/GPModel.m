@@ -15,7 +15,7 @@ classdef GPModel < GAModel
             end
         end
         
-        function summary(model, index)
+        function pseudocode(model, index)
             if nargin < 2
                 index = 1;
             end
