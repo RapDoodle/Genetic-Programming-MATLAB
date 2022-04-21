@@ -1,5 +1,5 @@
 classdef EnumeratedSignal < Signal
-    % EnumeratedSignals are signals that take in discrete values.
+    % EnumeratedSignals are objects that can yield enumerated values.
     % Lookup Name:
     %   Signal.EnumeratedSignal
     
