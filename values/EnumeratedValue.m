@@ -33,7 +33,7 @@ classdef EnumeratedValue < Value
             %   returnType: The return type. Could be any type that the
             %       environment variable returns. Could be empty but 
             %       only in the context of the object already 
-            %       initialized. Otherwise, error will be thrown.
+            %       initialized. Otherwise, an error will be thrown.
             if nargin > 1
                 node.relatedEnvVar = relatedEnvVar;
                 node.allowedValues = allowedValues;
