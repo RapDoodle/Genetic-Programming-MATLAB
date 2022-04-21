@@ -38,8 +38,11 @@ classdef Variable < Node
             %       'bounded', the lower bound of the variable's range
             %       should be provided.
             %   arg2: Only need to be specified when the field valuesType 
-            %       is set to 'continuous'. In such case, provide the upper
+            %       is set to 'bounded'. In such case, provide the upper
             %       bound of the variable's range.
+            if nargin < 3
+                returnType = 'unknown';
+            end
             node = node@Node(returnType, 1);
             
             node.appendLookupName('Variable');
@@ -47,7 +50,12 @@ classdef Variable < Node
             
             node.fieldName = fieldName;
             
-            if strcmp(valuesType, 'enumerated')
+            if nargin <= 1 || strcmp(valuesType, 'none')
+                node.valuesType = 0;
+                if nargin >= 3
+                    node.returnType = returnType;
+                end
+            elseif strcmp(valuesType, 'enumerated')
                 node.valuesType = 1;
                 node.allowedValues = arg1;
             elseif strcmp(valuesType, 'bounded')
