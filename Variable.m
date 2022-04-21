@@ -1,7 +1,7 @@
-classdef EnvVariable < Node
-    % EnvVariable are variables that will be used during execution
+classdef Variable < Node
+    % Variable are variables that will be used during execution
     % Lookupname:
-    %   EnvVariable.<VariableName>
+    %   Variable.<VariableName>
     
     properties
         fieldName
@@ -21,7 +21,7 @@ classdef EnvVariable < Node
     end
     
     methods
-        function node = EnvVariable(fieldName, valuesType, returnType, ...
+        function node = Variable(fieldName, valuesType, returnType, ...
                 arg1, arg2, requiredTags)
             % The constructor for environment variables
             % Arguments:
@@ -42,7 +42,7 @@ classdef EnvVariable < Node
             %       bound of the variable's range.
             node = node@Node(returnType, 1);
             
-            node.appendLookupName('EnvVariable');
+            node.appendLookupName('Variable');
             node.appendLookupName(fieldName);
             
             node.fieldName = fieldName;
