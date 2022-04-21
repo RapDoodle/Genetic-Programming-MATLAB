@@ -45,8 +45,7 @@ You can find more documentation and examples in the [documentation folder](./doc
     1. [GAModel](./docs/2.7%20GAModel.md)
     1. [GPModel](./docs/2.8%20GPModel.md)
 1. Examples
-    1. [Genetic programming based trading bot]()
-        - [Project page]()
+    1. [Genetic programming based trading bot](https://github.com/RapDoodle/Trading-Bot-GP-Example)
 
 Note: The development documentation is not available at the moment. But the code does contain an extensive amount of comments.
 
