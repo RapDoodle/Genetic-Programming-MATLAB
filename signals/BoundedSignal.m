@@ -1,5 +1,5 @@
 classdef BoundedSignal < Signal
-    % BoundedSignals are signals that outputs continous values.
+    % BoundedSignal objects can yield values between an interval.
     % Lookup Name:
     %   Signal.BoundedSignal
     
@@ -15,7 +15,7 @@ classdef BoundedSignal < Signal
             node.appendLookupName('BoundedSignal');
             if strcmp(returnType, 'int')
                 node.valueType = 1;
-            elseif strcmp(returnType, 'double')
+            elseif strcmp(returnType, 'double') || strcmp(returnType, 'float')
                 node.valueType = 2;
             else
                 error("Unknown valuesType.");
