@@ -27,7 +27,7 @@ Genetic programming (GP) is an extension of genetic algorithms. GP encodes the p
     addpath(genpath('./gp'));
     ```
 
-1. Start codeing.
+1. Start coding.
 
 ## Documentation and Examples
 
