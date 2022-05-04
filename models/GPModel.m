@@ -10,7 +10,7 @@ classdef GPModel < GAModel
         end
         
         function init(model, template, maxHeight)
-            for i=1:model.populationSize
+            for i=1:model.options.populationSize
                 model.population{i}.init(template, maxHeight);
             end
         end
