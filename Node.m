@@ -260,7 +260,7 @@ classdef Node < handle
             % Arguments:
             %   opt: A struct containing the following options
             %     - maxHeight: The maximum height allowed
-            %     - mutationRate: The rate of mutation. For example, 0.02
+            %     - mutationProb: The rate of mutation. For example, 0.02
             %       for 2%.
             %     - mutationStd: [Optional] A struct containing the
             %       mutation standard deviation of mutation for values 
@@ -274,7 +274,7 @@ classdef Node < handle
             if nargin < 3
                 maxHeight = opt.maxHeight;
             end
-            if rand() < opt.mutationRate
+            if rand() < opt.mutationProb
                 % The current node is chosen to mutate. Then try to grow
                 try
                     node.grow(opt.maxHeight-1);

@@ -68,7 +68,7 @@ classdef BoundedValue < Value
                 return;
             end
             
-            if rand() < options.terminalMutationRate
+            if rand() < options.terminalMutationProb
                 success = false;
                 if isfield(options, 'mutationStd') && ...
                         isfield(options.mutationStd, node.relatedEnvVar)

@@ -34,7 +34,7 @@ classdef BoundedSignal < Signal
         end
         
         function mutate(node, options, ~)
-            if rand() < options.terminalMutationRate
+            if rand() < options.terminalMutationProb
                 if node.valueType == 1
                     node.signal = randi([node.lowerBound, node.upperBound]);
                 else

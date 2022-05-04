@@ -23,7 +23,7 @@ classdef EnumeratedSignal < Signal
         end
         
         function mutate(node, options, ~)
-            if rand() < options.terminalMutationRate
+            if rand() < options.terminalMutationProb
                 node.init();
             end
         end
